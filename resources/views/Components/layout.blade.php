@@ -6,6 +6,10 @@
     <title>Home page</title>
 </head>
 <body>
+    <x-nav-link href="/" style=" color: red;">Home</x-nav-link>
+    <x-nav-link href="/about" style="color: green;">About</x-nav-link>
+    <x-nav-link href="/contact" style="color: ;">Contact</x-nav-link>
+
     {{ $slot }}
 </body>
 </html>
