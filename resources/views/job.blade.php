@@ -9,4 +9,8 @@
     This job pays: {{ $job['salary'] }} per year
 </p>
 
+<p>
+    Location: {{ $job['Location'] }}
+</p>
+
 </x-layout>
