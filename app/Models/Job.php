@@ -12,6 +12,7 @@ class Job extends Model{
         'title',
         'salary',
         'location',
+        'employer_id',
     ];
 
     public function employer(){
