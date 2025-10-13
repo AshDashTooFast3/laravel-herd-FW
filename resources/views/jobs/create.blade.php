@@ -13,14 +13,18 @@
                 <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                     <div class="sm:col-span-4">
                         <label for="title" class="block text-sm/6 font-medium text-white">Title</label>
-                       
                         <div class="mt-2">
                             <div
                                 class="flex items-center rounded-md bg-white/5 pl-3 outline-1 -outline-offset-1 outline-white/10 focus-within:outline-2 focus-within:-outline-offset-2 focus-within:outline-indigo-500">
                                 <div class="shrink-0 text-base text-gray-400 select-none sm:text-sm/6">
-                                </div>
                                 <input id="title" type="text" name="title" placeholder="Enter title here"
-                                    class="block min-w-0 grow bg-transparent py-1.5 pr-1  text-base text-white placeholder:text-gray-500 focus:outline-none sm:text-sm/6" />
+                                    class="block min-w-0 grow bg-transparent py-1.5 pr-1  text-base text-white placeholder:text-gray-500 focus:outline-none sm:text-sm/6" required/>
+                                </div>
+                            </div>
+                            <div class="mt-1">
+                                @error('title')
+                                    <p class="text-xs text-red-600 semi-bold mt-1">{{ $message }}</p>
+                                @enderror
                             </div>
                         </div>
                     </div>
@@ -32,9 +36,14 @@
                             <div
                                 class="flex items-center rounded-md bg-white/5 pl-3 outline-1 -outline-offset-1 outline-white/10 focus-within:outline-2 focus-within:-outline-offset-2 focus-within:outline-indigo-500">
                                 <div class="shrink-0 text-base text-gray-400 select-none sm:text-sm/6">
-                                </div>
                                 <input id="salary" type="text" name="salary" placeholder="Enter salary here"
-                                    class="block min-w-0 grow bg-transparent py-1.5 pr-1  text-base text-white placeholder:text-gray-500 focus:outline-none sm:text-sm/6" />
+                                    class="block min-w-0 grow bg-transparent py-1.5 pr-1  text-base text-white placeholder:text-gray-500 focus:outline-none sm:text-sm/6" required/>
+                                </div>
+                            </div>
+                              <div class="mt-1">
+                                @error('salary')
+                                    <p class="text-xs text-red-600 semi-bold mt-1">{{ $message }}</p>
+                                @enderror
                             </div>
                         </div>
                     </div>
@@ -46,14 +55,27 @@
                             <div
                                 class="flex items-center rounded-md bg-white/5 pl-3 outline-1 -outline-offset-1 outline-white/10 focus-within:outline-2 focus-within:-outline-offset-2 focus-within:outline-indigo-500">
                                 <div class="shrink-0 text-base text-gray-400 select-none sm:text-sm/6">
-                                </div>
                                 <input id="location" type="text" name="location" placeholder="Enter location here"
-                                    class="block min-w-0 grow bg-transparent py-1.5 pr-1  text-base text-white placeholder:text-gray-500 focus:outline-none sm:text-sm/6" />
+                                    class="block min-w-0 grow bg-transparent py-1.5 pr-1  text-base text-white placeholder:text-gray-500 focus:outline-none sm:text-sm/6" required/>
+                                </div>
+                            </div>
+                              <div class="mt-1">
+                                @error('location')
+                                    <p class="text-xs text-red-600 semi-bold mt-1">{{ $message }}</p>
+                                @enderror
                             </div>
                         </div>
                     </div>
-
                 </div>
+                {{-- @if ($errors->any())
+                    <div class="mt-2">
+                        <ul class="list-disc list-inside text-sm text-red-600 italic">
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif --}}
             </div>
         </div>
 
