@@ -18,7 +18,7 @@ Route::get('/register', [AuthController::class, 'create']);
 Route::post('/register', [AuthController::class, 'store']);
 Route::get('/login', [SessionController::class, 'create']);
 Route::post('/login', [SessionController::class, 'store']);
-
+Route::post('/logout', [SessionController::class, 'destroy']);
 //contact routes
 
 Route::view('/contact', 'contact');
