@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Job;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 
 class JobController extends Controller
 {
@@ -31,19 +34,19 @@ class JobController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-        'title' => 'required|string|min:3|max:255',
-        'salary' => 'required|min:0',
-        'location' => 'required|string|min:1|max:255',
-    ]);
+            'title' => 'required|string|min:3|max:255',
+            'salary' => 'required|min:0',
+            'location' => 'required|string|min:1|max:255',
+        ]);
 
-    Job::create([
-        'title' => $request->input('title'),
-        'salary' => $request->input('salary'),
-        'location' => $request->input('location'),
-        'employer_id' => 1
-    ]);
+        Job::create([
+            'title' => $request->input('title'),
+            'salary' => $request->input('salary'),
+            'location' => $request->input('location'),
+            'employer_id' => 1,
+        ]);
 
-    return redirect('/jobs')->with('success', 'Job created successfully!');
+        return redirect('/jobs')->with('success', 'Job created successfully!');
     }
 
     /**
@@ -68,18 +71,18 @@ class JobController extends Controller
     public function update(Request $request, Job $job)
     {
         $request->validate([
-        'title' => 'required|string|min:3|max:255',
-        'salary' => 'required|min:0',
-        'location' => 'required|string|min:1|max:255',
-    ]);
+            'title' => 'required|string|min:3|max:255',
+            'salary' => 'required|min:0',
+            'location' => 'required|string|min:1|max:255',
+        ]);
 
-    $job->update([
-        'title' => $request->input('title'),
-        'salary' => $request->input('salary'),
-        'location' => $request->input('location'),
-    ]);
+        $job->update([
+            'title' => $request->input('title'),
+            'salary' => $request->input('salary'),
+            'location' => $request->input('location'),
+        ]);
 
-    return redirect('/jobs/' . $job->id);
+        return redirect('/jobs/'.$job->id);
     }
 
     /**
@@ -87,7 +90,10 @@ class JobController extends Controller
      */
     public function destroy(Job $job)
     {
-            $job->delete();
-            return redirect('/jobs');
+        Gate::authorize('edit-job', $job);
+
+        $job->delete();
+
+        return redirect('/jobs');
     }
 }

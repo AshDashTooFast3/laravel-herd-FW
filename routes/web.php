@@ -7,18 +7,24 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\SessionController;
 
 Route::view('/', 'home');
+Route::view('/contact', 'contact');
+Route::get('/jobs', [JobController::class, 'index']);
+Route::get('/jobs/create', [JobController::class, 'create']);
+Route::post('/jobs', [JobController::class, 'store'])->middleware('auth');
+Route::get('/jobs/{job}', [JobController::class, 'show']);
 
+Route::get('/jobs/{job}/edit', [JobController::class, 'edit'])
+->middleware('auth')
+->can('edit', 'job');
 
-//jobs routes
-
-Route::resource('jobs', JobController::class);
+Route::patch('/jobs/{job}', [JobController::class, 'update'])->middleware('auth');
+Route::delete('/jobs/{job}', [JobController::class, 'destroy'])->middleware('auth');
 
 // Auth
 Route::get('/register', [AuthController::class, 'create']);
 Route::post('/register', [AuthController::class, 'store']);
-Route::get('/login', [SessionController::class, 'create']);
-Route::post('/login', [SessionController::class, 'store']);
-Route::post('/logout', [SessionController::class, 'destroy']);
-//contact routes
 
-Route::view('/contact', 'contact');
+Route::get('/login', [SessionController::class, 'create'])->name("login");
+Route::post('/login', [SessionController::class, 'store']);
+
+Route::post('/logout', [SessionController::class, 'destroy']);
