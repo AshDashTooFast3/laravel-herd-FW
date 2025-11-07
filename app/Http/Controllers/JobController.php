@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\JobPosted;
 use App\Models\Job;
-use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Mail;
 
 class JobController extends Controller
 {
@@ -39,12 +39,14 @@ class JobController extends Controller
             'location' => 'required|string|min:1|max:255',
         ]);
 
-        Job::create([
+        $job = Job::create([
             'title' => $request->input('title'),
             'salary' => $request->input('salary'),
             'location' => $request->input('location'),
             'employer_id' => 1,
         ]);
+
+        Mail::to($job->employer->user)->send(new JobPosted($job));
 
         return redirect('/jobs')->with('success', 'Job created successfully!');
     }
